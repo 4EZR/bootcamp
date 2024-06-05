@@ -11,7 +11,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// Ensure the directory exists
+// Error Handling
 if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir);
 }
