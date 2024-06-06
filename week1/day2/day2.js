@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 
-// fs.writeFileSync('test.txt', 'hello worldb 2')
+fs.writeFileSync('test.txt', 'hello worldb 2')
 
 // const fs = require('fs');
 
