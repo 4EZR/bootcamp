@@ -3,16 +3,10 @@ const path = require('path');
 const validator = require('validator');
 
 // Define the data directory and file path
-const dataDir = path.join(__dirname, 'data');
-const dataFilePath = path.join(dataDir, 'data2.json');
 
-if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir);
-}
 
 const nameExists = (data, name) => {
-    const lowerCaseName = name.toLowerCase();
-    return data.some(item => item.name.toLowerCase() === lowerCaseName);
+    return data.some(item => item.name.toLowerCase() === name.toLowerCase());
 };
 
 const readJsonFile = (filePath) => {
@@ -53,6 +47,13 @@ const saveContact = (contact) => {
     if (!validatePhone(contact.mobile)) {
         console.log('Invalid phone format.');
         return;
+    }
+
+    const dataDir = path.join(__dirname, 'data');
+    const dataFilePath = path.join(dataDir, 'data2.json');
+
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir);
     }
 
     let contacts = readJsonFile(dataFilePath);
