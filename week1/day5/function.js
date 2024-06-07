@@ -6,25 +6,37 @@ const validator = require('validator');
 const dataDir = path.join(__dirname, 'data');
 const dataFilePath = path.join(dataDir, 'data.json');
 
-const nameExists = (data, name) => {
-    return data.some(item => item.name.toLowerCase() === name.toLowerCase());
+const checkDataDir = () => {
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir);
+    }
 };
 
 const readJsonFile = (filePath) => {
-    let data = [];
     try {
         if (fs.existsSync(filePath)) {
             const fileData = fs.readFileSync(filePath, 'utf-8');
-            if (fileData) {
-                data = JSON.parse(fileData);
-            }
+            return fileData ? JSON.parse(fileData) : [];
         } else {
             console.log('File does not exist.');
         }
     } catch (err) {
         console.error('Error reading the file:', err);
     }
-    return data;
+    return [];
+};
+
+const writeJsonFile = (filePath, data) => {
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+        console.log('Operation successful.');
+    } catch (err) {
+        console.error('Error writing to the file:', err);
+    }
+};
+
+const nameExists = (data, name) => {
+    return data.some(item => item.name.toLowerCase() === name.toLowerCase());
 };
 
 const validateEmail = (email) => {
@@ -38,61 +50,40 @@ const validatePhone = (phone) => {
 
 
 const saveContact = (contact) => {
-    console.log(contact);
     if (!validateEmail(contact.email)) {
         console.log('Invalid email format.');
         return;
     }
 
-    if (!validatePhone(contact.mobile)) {
+    if (!validatePhone(contact.phone)) {
         console.log('Invalid phone format.');
         return;
     }
 
-
-
-    if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir);
-    }
-
-    let contacts = readJsonFile(dataFilePath);
+    checkDataDir();
+    const contacts = readJsonFile(dataFilePath);
     if (nameExists(contacts, contact.name)) {
         console.log(`The name "${contact.name}" already exists.`);
         return;
     }
 
     contacts.push(contact);
-    const data = JSON.stringify(contacts, null, 2);
-
-    try {
-        fs.writeFileSync(dataFilePath, data);
-        console.log('Contact saved successfully.');
-    } catch (err) {
-        console.error('Error writing to the file:', err);
-    }
+    writeJsonFile(dataFilePath, contacts);
 };
 
 const deleteContact = (name) => {
-    let contacts = readJsonFile(dataFilePath);
-    const initialLength = contacts.length;
-    contacts = contacts.filter(contact => contact.name.toLowerCase() !== name.toLowerCase());
+    const contacts = readJsonFile(dataFilePath);
+    const newContacts = contacts.filter(contact => contact.name.toLowerCase() !== name.toLowerCase());
 
-    if (contacts.length === initialLength) {
+    if (newContacts.length === contacts.length) {
         console.log(`Contact with name "${name}" not found.`);
         return;
     }
 
-    const data = JSON.stringify(contacts, null, 2);
-
-    try {
-        fs.writeFileSync(dataFilePath, data);
-        console.log(`Contact "${name}" deleted successfully.`);
-    } catch (err) {
-        console.error('Error writing to the file:', err);
-    }
+    writeJsonFile(dataFilePath, newContacts);
 };
 
-const listContact = () => {
+const listContacts = () => {
     const contacts = readJsonFile(dataFilePath);
     if (contacts.length === 0) {
         console.log('No contacts found.');
@@ -100,7 +91,7 @@ const listContact = () => {
     }
     console.log('Contact List:');
     contacts.forEach((contact, index) => {
-        console.log(`${index + 1}. Name: ${contact.name}, Email: ${contact.email}, phone: ${contact.phone}\n`);
+        console.log(`${index + 1}. Name: ${contact.name}, Email: ${contact.email}, Phone: ${contact.phone}`);
     });
 };
 
@@ -111,20 +102,42 @@ const contactDetail = (name) => {
         console.log(`Contact with name "${name}" not found.`);
         return;
     }
-    console.log(`Contact Details - Name: ${contact.name}, Email: ${contact.email}, phone: ${contact.phone}`);
+    console.log(`Contact Details - Name: ${contact.name}, Email: ${contact.email}, Phone: ${contact.phone}`);
 };
 
-const updateContact = (name, newContact)=>{
+const updateContact = (name, newContact) => {
     const contacts = readJsonFile(dataFilePath);
-    const contact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
+    const contactIndex = contacts.findIndex(contact => contact.name.toLowerCase() === name.toLowerCase());
 
-}
+    if (contactIndex === -1) {
+        console.log(`Contact with name "${name}" not found.`);
+        return;
+    }
 
-// Module exports
+    if (newContact.email && !validateEmail(newContact.email)) {
+        console.log('Invalid email format.');
+        return;
+    }
+
+    if (newContact.phone && !validatePhone(newContact.phone)) {
+        console.log('Invalid phone format.');
+        return;
+    }
+    const existingContact = contacts[contactIndex];
+    const updatedContact = {
+        name: newContact.name || existingContact.name,
+        email: newContact.email || existingContact.email,
+        phone: newContact.phone || existingContact.phone
+    };
+    contacts[contactIndex] = updatedContact;
+    writeJsonFile(dataFilePath, contacts);
+};
+
+
 module.exports = {
     saveContact,
     deleteContact,
     contactDetail,
-    listContact,
+    listContacts,
     updateContact
 };

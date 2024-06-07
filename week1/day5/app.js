@@ -19,8 +19,8 @@ yargs.command({
             demandOption: false,
             type: 'string'
         },
-        mobile: { 
-            describe: 'Contact Mobile',
+        phone: { 
+            describe: 'Contact phone',
             demandOption: true,
             type: 'string'
         }
@@ -30,7 +30,7 @@ yargs.command({
         const contact = {
             name: argv.name,
             email: argv.email,
-            mobile: argv.mobile
+            phone: argv.phone
         };
         sifuContact.saveContact(contact);
 
@@ -83,6 +83,47 @@ yargs.command({
         sifuContact.contactDetail(argv.name);
     }
 });
+
+yargs.command({
+    command: 'update',
+    describe: 'update contact',
+
+    builder: {
+        name: {
+            describe: 'Contact Name',
+            demandOption: true,
+            type: 'string'
+        },
+        new_name: {
+            describe: 'Contact Name',
+            demandOption: false,
+            type: 'string'
+        },
+        new_email: {
+            describe: 'Contact Email',
+            demandOption: false,
+            type: 'string'
+        },
+        new_phone: { 
+            describe: 'Contact phone',
+            demandOption: false,
+            type: 'string'
+        }
+    },
+
+    handler(argv) {
+
+        const newContact = {};
+        if (argv.new_name) newContact.name = argv.new_name;
+        if (argv.new_email) newContact.email = argv.new_email;
+        if (argv.new_phone) newContact.phone = argv.new_phone;
+
+
+        sifuContact.updateContact(argv.name, newContact);
+    }
+
+    
+})
 
 
 
