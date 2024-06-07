@@ -74,9 +74,5 @@ const saveContact = (contact) => {
 
 // Module exports
 module.exports = {
-    nameExists,
-    readJsonFile,
-    saveContact,
-    validateEmail,
-    validatePhone
+    saveContact
 };
