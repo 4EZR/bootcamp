@@ -43,7 +43,6 @@ const saveContact = (contact) => {
         return;
     }
 
-
     if (!validatePhone(contact.mobile)) {
         console.log('Invalid phone format.');
         return;
