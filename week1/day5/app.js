@@ -59,9 +59,6 @@ yargs.command({
     command: 'get',
     describe: 'list new contact',
 
-    builder: {
-    },
-
     handler(argv) {
         sifuContact.listContact();
     }
