@@ -123,12 +123,10 @@ const updateContact = (name, newContact) => {
         console.log('Invalid phone format.');
         return;
     }
+   
     const existingContact = contacts[contactIndex];
-    const updatedContact = {
-        name: newContact.name || existingContact.name,
-        email: newContact.email || existingContact.email,
-        phone: newContact.phone || existingContact.phone
-    };
+    contacts[contactIndex] = { ...existingContact, ...newContact };
+   
     contacts[contactIndex] = updatedContact;
     writeJsonFile(dataFilePath, contacts);
 };
