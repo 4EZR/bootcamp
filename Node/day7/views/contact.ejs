@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= data.title %>
+    </title>
+    <link rel="stylesheet" href="/css/tailwind.css" />
+</head>
+
+<body>
+    <%- include('components/header') %>
+        <div
+            class=" bg-gradient-to-r from-cyan-500 to-sky-950  h-full min-h-[93vh] flex justify-center items-center px-20 pt-10">
+            <div>
+
+                <p class="text-3xl  text-white lowercase font-bold mb-10">
+                    <%= data.message %>
+                </p>
+
+                <div class="grid grid-cols-5 gap-4">
+                    <% data.contact.forEach(contact=> { %>
+                        <div class="bg-white rounded-lg shadow-md p-4 ">
+                            <h2 class="text-xl  mb-2 font-medium">
+                                <%= contact.name %>
+                            </h2>
+                            <p class="mb-1">
+                                <%= contact.email %>
+                            </p>
+                            <p class="mb-4">
+                                <%= contact.phone %>
+                            </p>
+                            <a href="/contact/<%= contact.id %>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4
+                                rounded">
+                                View Details
+                            </a>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+
+        </div>
+
+
+
+</body>
+
+</html>
