@@ -15,7 +15,7 @@ const loadContactsData = (req, res, next) => {
     const dataFilePath = path.join(__dirname, 'data', 'data.json');
     fs.readFile(dataFilePath, 'utf8', (err, jsonData) => {
         if (err) {
-            return res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
+            return res.status(500).render('404', { data: { title: '500', message: 'Internal Server Error' } });
         }
         res.locals.contacts = JSON.parse(jsonData);
         next();
