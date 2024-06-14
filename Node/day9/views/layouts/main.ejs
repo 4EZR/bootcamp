@@ -12,18 +12,23 @@
 
 <body>
     <%- include('../partials/header') %>
+
+    
         <div
             class=" bg-gradient-to-r from-cyan-500 to-sky-950  h-full min-h-[93vh] flex justify-center items-center px-20 py-10">
 
-            <div>
+            <div class="w-full">
                 <main><%- body %></main>
-                <hr>
-                <%- defineContent('mainas') %>
+      
             </div>
         </div>
 
 
         <%- include('../partials/footer') %>
 </body>
+
+
+
+<%- defineContent('scripts') %>
 
 </html>
