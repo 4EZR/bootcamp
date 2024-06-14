@@ -76,22 +76,23 @@ const readJsonFile = (filePath) => {
 };
 
 const saveContact = (contact) => {
-    // if (!validateEmail(contact.email)) {
-    //     console.log('Invalid email format.');
-    //     return false;
-    // }
-
-    // if (!validatePhone(contact.phone)) {
-    //     console.log('Invalid phone format.');
-    //     return false;
-    // }
-
-    // checkDataDir();
-    const contacts = readJsonFile(dataFilePath);
-    if (nameExists(contacts, contact.name)) {
-        console.log(`The name "${contact.name}" already exists.`);
+    if (!validateEmail(contact.email)) {
+        req.flash('error', 'Invalid email format');
         return false;
     }
+
+    if (!validatePhone(contact.phone)) {
+        req.flash('error', 'Invalid phone format');
+        return false;
+    }
+
+    checkDataDir();
+    const contacts = readJsonFile(dataFilePath);
+    if (nameExists(contacts, contact.name)) {
+        req.flash('error', `The name "${contact.name}" already exists.`);
+        return false;
+    }
+  
 
     const newId = contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
     const newContact = { id: newId, ...contact };
@@ -140,8 +141,7 @@ app.post('/contact/add', (req, res) => {
         req.flash('success', 'Contact added successfully');
         res.redirect('/contact');
     } else {
-        req.flash('error', 'Failed to add contact');
-        res.redirect('/add-contact');
+          res.redirect('/add-contact');
     }
 });
 
