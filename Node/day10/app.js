@@ -164,26 +164,34 @@ app.delete('/delete-contact/:id', async (req, res) => {
     res.redirect('/contact');
 });
 
-app.get('/edit-contact/:id', loadContactsData, async (req, res) => {
+app.get('/edit-contact/:id',  async (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const contact = res.locals.contacts.find(c => c.id === id);
+    try {
+        const contact = await getContactById(id);
 
-    if (!contact) {
+        if (!contact) {
+            const data = {
+                title: '404',
+                message: 'Contact not found',
+            };
+            return res.status(404).render('404', { data });
+        }
+
         const data = {
-            title: '404',
-            message: 'Contact not found',
+            title: 'Contact',
+            message: 'Edit Contact',
+            contact: contact,
+            messages: req.flash()
         };
-        return res.status(404).render('404', { data });
+    
+        res.render('form', { data });
+    } catch (error) {
+        res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
     }
 
-    const data = {
-        title: 'Contact',
-        message: 'Edit Contact',
-        contact: contact,
-        messages: req.flash()
-    };
+ 
 
-    res.render('form', { data });
+
 });
 
 app.put('/contact/edit', async (req, res) => {
