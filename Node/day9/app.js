@@ -124,7 +124,7 @@ app.get('/contact', loadContactsData, (req, res) => {
         message: 'Ini Contact',
         contact: res.locals.contacts,
     };
-    res.render('contact', { data, messages: req.flash() });
+    res.render('contact', { data, messages: req.flash('success') });
 });
 
 app.get('/add-contact', (req, res) => {
@@ -132,7 +132,7 @@ app.get('/add-contact', (req, res) => {
         title: 'Contact',
         message: 'Add Contact',
     };
-    res.render('form', { data });
+    res.render('form', { data, messages: req.flash('error') });
 });
 
 app.post('/contact/add', (req, res) => {
@@ -175,7 +175,7 @@ app.get('/edit-contact/:id', loadContactsData, (req, res) => {
         contact: contact,
     };
 
-    res.render('form', { data });
+    res.render('form', { data , messages: req.flash('error') });
 });
 
 app.put('/contact/edit', loadContactsData, (req, res) => {

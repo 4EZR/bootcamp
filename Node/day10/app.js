@@ -27,7 +27,7 @@ app.set('layout', 'layouts/main');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
+app.use(cookieParser('mysecretkey'));
 app.use(session({
     secret: 'mysecretkey',
     saveUninitialized: true,
@@ -45,6 +45,11 @@ const getAllContacts = async () => {
 const getContactById = async (id) => {
     const result = await pool.query('SELECT * FROM contact WHERE id = $1', [id]);
     return result.rows[0];
+};
+
+const countName = async (name) => {
+    const result = await pool.query('SELECT COUNT(*) FROM contact WHERE name = $1', [name]);
+    return result.rows[0].count;
 };
 
 const createContact = async (name, phone, email) => {
@@ -83,19 +88,26 @@ app.get('/about', (req, res) => {
 app.get('/contact', async (req, res) => {
     try {
         const contacts = await getAllContacts();
-        res.render('contact', { data: { title: 'Contact', message: 'Ini Contact', contact: contacts }, messages: req.flash() });
+        res.render('contact', { data: { title: 'Contact', message: 'Ini Contact', contact: contacts }, messages: req.flash('success') });
     } catch (error) {
         res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
     }
 });
 
 app.get('/add-contact', (req, res) => {
-    res.render('form', { data: { title: 'Contact', message: 'Add Contact' } });
+    res.render('form', { data: { title: 'Contact', message: 'Add Contact' } , messages: req.flash('error') });
 });
 
 app.post('/contact/add', async (req, res) => {
     const { name, phone, email } = req.body;
 
+    if (name) {
+        const nameCount = await countName(name);
+        if (nameCount > 1) {
+            req.flash('error', 'Name already exists');
+            return res.redirect(`/add-contact`);
+        }
+    }
     if (!validateEmail(email)) {
         req.flash('error', 'Invalid email format');
         return res.redirect('/add-contact');
@@ -137,7 +149,7 @@ app.get('/edit-contact/:id', async (req, res) => {
             return res.status(404).render('404', { data: { title: '404', message: 'Contact not found' } });
         }
 
-        res.render('form', { data: { title: 'Contact', message: 'Edit Contact', contact }, messages: req.flash() });
+        res.render('form', { data: { title: 'Contact', message: 'Edit Contact', contact }, messages: req.flash('error') });
     } catch (error) {
         res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
     }
@@ -145,6 +157,14 @@ app.get('/edit-contact/:id', async (req, res) => {
 
 app.put('/contact/edit', async (req, res) => {
     const { id, name, phone, email } = req.body;
+
+    // if (name) {
+    //     const nameCount = await countName(name);
+    //     if (nameCount > 1) {
+    //         req.flash('error', 'Name already exists');
+    //         return res.redirect(`/edit-contact/${id}`);
+    //     }
+    // }
 
     if (!validateEmail(email) || !validatePhone(phone)) {
         req.flash('error', 'Invalid email or phone format');
