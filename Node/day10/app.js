@@ -5,8 +5,7 @@ const validator = require('validator');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
-const cookieParser = require('cookie-parser'); 
-
+const cookieParser = require('cookie-parser');
 const { Pool } = require('pg');
 
 // PostgreSQL connection pool
@@ -25,28 +24,21 @@ const port = 3000;
 app.use(expressLayouts);
 app.use(methodOverride('_method'));
 app.set('layout', 'layouts/main');
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Add cookie-parser and express-session middleware
 app.use(cookieParser());
 app.use(session({
     secret: 'mysecretkey',
     saveUninitialized: true,
     resave: true,
 }));
-
-// Configure flash middleware
 app.use(flash());
-
 app.use(express.urlencoded({ extended: true }));
 
 // PostgreSQL Functions
 const getAllContacts = async () => {
-    const result = await pool.query('SELECT * FROM contact');
+    const result = await pool.query('SELECT * FROM contact ORDER BY id DESC');
     return result.rows;
 };
 
@@ -71,62 +63,34 @@ const updateContact = async (id, name, phone, email) => {
     return result.rows[0];
 };
 
-
 const deleteContact = async (id) => {
     await pool.query('DELETE FROM contact WHERE id = $1', [id]);
 };
 
-const loadContactsData = async (req, res, next) => {
-    try {
-        const contacts = await getAllContacts();
-        res.locals.contacts = contacts;
-    } catch (error) {
-        return res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
-    }
-    next();
-};
-
 // Validation functions
-const validateEmail = (email) => {
-    return validator.isEmail(email);
-};
-
-const validatePhone = (phone) => {
-    return validator.isMobilePhone(phone, 'id-ID');
-};
+const validateEmail = (email) => validator.isEmail(email);
+const validatePhone = (phone) => validator.isMobilePhone(phone, 'id-ID');
 
 // Routes
 app.get('/', (req, res) => {
-    const data = {
-        title: 'Index',
-        message: 'Ini Index',
-    };
-    res.render('index', { data });
+    res.render('index', { data: { title: 'Index', message: 'Ini Index' } });
 });
 
 app.get('/about', (req, res) => {
-    const data = {
-        title: 'About',
-        message: 'Ini About',
-    };
-    res.render('about', { data });
+    res.render('about', { data: { title: 'About', message: 'Ini About' } });
 });
 
-app.get('/contact', loadContactsData, (req, res) => {
-    const data = {
-        title: 'Contact',
-        message: 'Ini Contact',
-        contact: res.locals.contacts,
-    };
-    res.render('contact', { data, messages: req.flash() });
+app.get('/contact', async (req, res) => {
+    try {
+        const contacts = await getAllContacts();
+        res.render('contact', { data: { title: 'Contact', message: 'Ini Contact', contact: contacts }, messages: req.flash() });
+    } catch (error) {
+        res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
+    }
 });
 
 app.get('/add-contact', (req, res) => {
-    const data = {
-        title: 'Contact',
-        message: 'Add Contact',
-    };
-    res.render('form', { data });
+    res.render('form', { data: { title: 'Contact', message: 'Add Contact' } });
 });
 
 app.post('/contact/add', async (req, res) => {
@@ -164,55 +128,33 @@ app.delete('/delete-contact/:id', async (req, res) => {
     res.redirect('/contact');
 });
 
-app.get('/edit-contact/:id',  async (req, res) => {
+app.get('/edit-contact/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
         const contact = await getContactById(id);
 
         if (!contact) {
-            const data = {
-                title: '404',
-                message: 'Contact not found',
-            };
-            return res.status(404).render('404', { data });
+            return res.status(404).render('404', { data: { title: '404', message: 'Contact not found' } });
         }
 
-        const data = {
-            title: 'Contact',
-            message: 'Edit Contact',
-            contact: contact,
-            messages: req.flash()
-        };
-    
-        res.render('form', { data });
+        res.render('form', { data: { title: 'Contact', message: 'Edit Contact', contact }, messages: req.flash() });
     } catch (error) {
         res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
     }
-
- 
-
-
 });
 
 app.put('/contact/edit', async (req, res) => {
     const { id, name, phone, email } = req.body;
 
-    console.log(`Editing contact with ID: ${id}`);
-
-    
     if (!validateEmail(email) || !validatePhone(phone)) {
-        console.log('Invalid email or phone format');
         req.flash('error', 'Invalid email or phone format');
         return res.redirect(`/edit-contact/${id}`);
     }
 
     try {
-        // Update contact
         await updateContact(id, name, phone, email);
-        console.log(`Contact with ID ${id} updated successfully`);
         req.flash('success', 'Contact updated successfully');
     } catch (error) {
-        console.error(`Failed to update contact with ID ${id}:`, error);
         req.flash('error', 'Failed to update contact');
     }
     res.redirect('/contact');
@@ -225,19 +167,10 @@ app.get('/contact/:id', async (req, res) => {
         const contact = await getContactById(id);
 
         if (!contact) {
-            const data = {
-                title: '404',
-                message: 'Contact not found',
-            };
-            return res.status(404).render('404', { data });
+            return res.status(404).render('404', { data: { title: '404', message: 'Contact not found' } });
         }
 
-        const data = {
-            title: 'Contact Details',
-            message: 'Contact Details',
-            contact: contact,
-        };
-        res.render('contact-details', { data });
+        res.render('contact-details', { data: { title: 'Contact Details', message: 'Contact Details', contact } });
     } catch (error) {
         res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
     }
@@ -245,11 +178,7 @@ app.get('/contact/:id', async (req, res) => {
 
 // 404 handler
 app.use((req, res) => {
-    const data = {
-        title: '404',
-        message: 'Page Not Found',
-    };
-    res.status(404).render('404', { data, layout: 'layouts/error' });
+    res.status(404).render('404', { data: { title: '404', message: 'Page Not Found' }, layout: 'layouts/error' });
 });
 
 // Start the server
