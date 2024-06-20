@@ -10,11 +10,17 @@ const Navbar = () => {
     overflow: 'hidden',
     backgroundColor: '#333',
   };
-
+  const test = {
+    margin: 0,
+    padding: 0,
+    color:'#fff',
+  };
   const liStyles = {
+    float: 'right',
+  };
+  const liStyles3 = {
     float: 'left',
   };
-
   const linkStyles = {
     display: 'block',
     color: 'white',
@@ -29,6 +35,11 @@ const Navbar = () => {
 
   return (
     <ul style={navbarStyles}>
+      <li style={liStyles3}>
+        <h1 style={test}>
+          BootCAMP WGS Day 1
+        </h1>
+      </li>
       <li style={liStyles}>
         <a href="#home" style={linkStyles} className="active">
           Home

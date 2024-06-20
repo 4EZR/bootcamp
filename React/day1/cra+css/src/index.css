@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.navbar{
+  list-style-type: none;
+  margin: 0;
+  padding:0;
+  overflow: 'hidden';
+  background-color: '#333';
+}
+.list-style{
+  float: left;
+}
+.link-style{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.hover-style{
+  background-color: #111;
+}
