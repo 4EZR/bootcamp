@@ -1,0 +1,4 @@
+3 komponen penting
+Nesting
+Reusability
+configuration

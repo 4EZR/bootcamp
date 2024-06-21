@@ -1,16 +1,6 @@
+import React from 'react';
+import AppRoutes from './routes/AppRoutes';
 
-import { Button } from "./components/ui/button";
-import Header  from "./components/header";
-// Adjust the path as needed
+const App = () => <AppRoutes />;
 
-function App() {
-
-
-  return (
-    <>
-    <Header/>
-    </>
-  )
-}
-
-export default App
+export default App;
