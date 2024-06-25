@@ -10,14 +10,14 @@ const generateFakeData = () => ({
   name: faker.person.firstName(),
   comment: faker.lorem.sentence(),
   date: faker.date.past(),
-  likes: 0 // Added likes property
+  likes: 0 
 });
 
 class CommentContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fakeData: Array.from({ length: 3 }, () => generateFakeData()) // Initial fake data
+      fakeData: Array.from({ length: 3 }, () => generateFakeData()) 
     };
     this.likeCounter = 0; 
   }
