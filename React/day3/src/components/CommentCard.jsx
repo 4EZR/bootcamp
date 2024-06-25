@@ -1,7 +1,7 @@
 // src/components/CommentCard.jsx
 import React from 'react';
 import dayjs from 'dayjs';
-
+import { Button } from '@/components/ui/button';
 const formatDate = (date) => {
   const now = dayjs();
   const diffInDays = now.diff(date, 'day');
@@ -27,6 +27,7 @@ const CommentCard = ({ image, name, comment, date }) => (
         <p className="text-gray-400 text-sm">{formatDate(date)}</p>
       </div>
       <p className="text-gray-600">{comment}</p>
+
     </div>
   </div>
 );
