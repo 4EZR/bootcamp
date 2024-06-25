@@ -13,17 +13,17 @@ const {
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render('index', { data: { title: 'Index', message: 'Ini Index' } });
+    res.render('index', { data: { title: 'Index', message: 'index' } });
 });
 
 router.get('/about', (req, res) => {
-    res.render('about', { data: { title: 'About', message: 'Ini About' } });
+    res.render('about', { data: { title: 'About', message: 'About us' } });
 });
 
 router.get('/contact', async (req, res) => {
     try {
         const contacts = await getAllContacts();
-        res.render('contact', { data: { title: 'Contact', message: 'Ini Contact', contact: contacts }, messages: req.flash('success') });
+        res.render('contact', { data: { title: 'Contact', message: 'Contact List', contact: contacts }, messages: req.flash('success') });
     } catch (error) {
         res.status(500).render('500', { data: { title: '500', message: 'Internal Server Error' } });
     }
@@ -38,7 +38,7 @@ router.post('/contact/add', async (req, res) => {
 
     if (name) {
         const nameCount = await countName(name);
-        if (nameCount > 1) {
+        if (nameCount >= 1) {
             req.flash('error', 'Name already exists');
             return res.redirect(`/add-contact`);
         }
