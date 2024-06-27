@@ -6,7 +6,7 @@ import img2 from '@/assets/home/gambar2.png';
 import img3 from '@/assets/home/gambar3.png';
 const Home = () => (
     <div className=' min-h-screen '>
-        <div className='bg-[#FBFBFB] shadow-lg px-10 py-16 rounded-xl'>
+        <div className='bg-[#FBFBFB] shadow-lg px-10 py-16 rounded-2xl'>
 
             <p className='text-2xl mb-12'>Biro Kerohanian Service</p>
 

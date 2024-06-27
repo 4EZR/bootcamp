@@ -5,6 +5,7 @@ import Comment from '../pages/Comment';
 import Home from '../pages/Home';
 import Times from '../pages/Time';
 import MainLayout from '../layouts/MainLayout';
+import SearchPhotoGallery from '../pages/Search';
 
 const AppRoutes = () => (
     <Router>
@@ -13,6 +14,7 @@ const AppRoutes = () => (
                 <Route path="/" element={<Home />} />
                 <Route path="/comment" element={<Comment />} />
                 <Route path="/time" element={<Times />} />
+                <Route path='/search' element={<SearchPhotoGallery />} />
             </Routes>
         </MainLayout>
     </Router>

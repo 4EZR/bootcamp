@@ -7,10 +7,10 @@ import bg from '@/assets/bg.svg'
 import Sidebar from '@/components/sidebar';
 
 const MainLayout = ({ children }) => (
-  <div className='overflow-x-hidden bg-[#B8CDF8]'>
+  <div className='overflow-x-hidden bg-white'>
     <Header />
     <Sidebar />
-    <div className="bg-white p-10 ms-5 md:ms-20 mt-20 2xl:ms-28 rounded-3xl me-5 bg-cover bg-center"
+    <div className="bg-white shadow-inner p-10 ms-5 md:ms-20 mt-20 2xl:ms-28 rounded-3xl me-5 bg-cover bg-center"
          style={{ backgroundImage: `url(${bg})` }}>
       {children}
     </div>

@@ -5,7 +5,7 @@ import logo from '@/assets/penabur-icon.svg'; // Importing the image
 
 const Header = () => {
     return (
-        <header className="flex justify-between items-center p-4 px-10 bg-[#B8CDF8] text-gray-800   fixed top-0 w-screen backdrop-blur-lg z-20">
+        <header className="flex justify-between items-center p-4 px-5 bg-white text-gray-800   fixed top-0 w-screen backdrop-blur-lg z-20">
             <div className='flex items-center gap-3'>
                 <img src={logo} alt="Logo" className="h-8" /> {/* Using the imported image */}
                 <p className="text-base font-medium capitalize leading-4 pl-3 border-gray-800 border-l-[2px]">
