@@ -9,7 +9,7 @@ const SearchPhotoGallery = () => {
     const [loading, setLoading] = useState(false);
 
     const handleSearch = async (query) => {
-       
+
         try {
             setLoading(true);
             const data = await searchPhotos(query);
@@ -27,7 +27,10 @@ const SearchPhotoGallery = () => {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <PhotoGrid photos={photos} />
+                <div className='mt-10'>
+                 
+                    <PhotoGrid photos={photos} />
+                </div>
             )}
         </div>
     );

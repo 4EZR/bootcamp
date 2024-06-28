@@ -1,31 +1,43 @@
-// src/components/SearchBar.js
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Input } from '@/components/ui/input';
 
-const SearchBar = ({ onSearch }) => {
-    const [query, setQuery] = useState('');
+class SearchBar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+        };
+        this.inputRef = React.createRef();
+    }
 
-    const handleInputChange = (e) => {
-        setQuery(e.target.value);
+    componentDidMount() {
+        this.inputRef.current.focus();
+    }
+
+    handleInputChange = (e) => {
+        this.setState({ query: e.target.value });
     };
 
-    const handleKeyDown = (e) => {
+    handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            onSearch(query);
+            this.props.onSearch(this.state.query);
         }
     };
 
-    return (
-        <Input
-            type="text"
-            value={query}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Search for photos"
-            className="w-full px-4 py-2 border rounded-md"
-        />
-    );
-};
+    render() {
+        return (
+            <Input
+                ref={this.inputRef}
+                type="text"
+                value={this.state.query}
+                onChange={this.handleInputChange}
+                onKeyDown={this.handleKeyDown}
+                placeholder="Cari foto"
+                className="w-full px-4 py-2 border rounded-md"
+            />
+        );
+    }
+}
 
 export default SearchBar;
