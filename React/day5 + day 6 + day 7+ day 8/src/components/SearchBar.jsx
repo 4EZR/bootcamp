@@ -33,7 +33,7 @@ class SearchBar extends Component {
                 value={this.state.query}
                 onChange={this.handleInputChange}
                 onKeyDown={this.handleKeyDown}
-                placeholder="Cari foto"
+                placeholder="Search Content"
                 className="w-full px-4 py-2 border rounded-md"
             />
         );

@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import Times from '../pages/Time';
 import MainLayout from '../layouts/MainLayout';
 import SearchPhotoGallery from '../pages/Search';
+import Youtube from '../pages/Youtube';
 
 const AppRoutes = () => (
     <Router>
@@ -15,6 +16,7 @@ const AppRoutes = () => (
                 <Route path="/comment" element={<Comment />} />
                 <Route path="/time" element={<Times />} />
                 <Route path='/search' element={<SearchPhotoGallery />} />
+                <Route path='/youtube' element={<Youtube />} />
             </Routes>
         </MainLayout>
     </Router>

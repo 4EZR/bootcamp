@@ -4,6 +4,7 @@ import { MdComment } from "react-icons/md";
 import { CiTimer } from "react-icons/ci";
 import { GoHomeFill } from "react-icons/go";
 import { CiImageOn } from "react-icons/ci";
+import { FaYoutube } from "react-icons/fa";
 
 const Sidebar = () => {
     return (
@@ -28,6 +29,9 @@ const Sidebar = () => {
                     </div>
                     <div className="mt-5">
                         <SidebarButton icon={<CiImageOn />} tooltipText="Tugas | Image"  href="/search"/>
+                    </div>
+                    <div className="mt-5">
+                        <SidebarButton icon={<FaYoutube />} tooltipText="Tugas | Youtube"  href="/youtube"/>
                     </div>
                 </div>
             </div>

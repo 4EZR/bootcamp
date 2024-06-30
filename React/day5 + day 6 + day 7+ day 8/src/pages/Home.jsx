@@ -6,7 +6,7 @@ import img2 from '@/assets/home/gambar2.png';
 import img3 from '@/assets/home/gambar3.png';
 import Verse from '@/components/bibleVerse';
 const Home = () => (
-    <div className='min-h-[76.9vh]'>
+    <div className='min-h-[76.9vh] 2xl:min-h-[81vh]'>
 
         <div class='rounded-2xl bg-[#B8CDF8] p-8 mb-10 shadow-lg'>
             <Verse />

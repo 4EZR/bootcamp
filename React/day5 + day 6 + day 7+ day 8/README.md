@@ -13,3 +13,8 @@ implementasi api search unsplash  axios call disimpan pada services/unsplashServ
 # Day 7 - Use Ref 
 
 implementasi Ref Pada inputsearch mengubah dari function componennt (with hook) kembali ke class component , dan menghandle tampilan photo grid dengan tampilan serupa dengan unsplash yaitu Masonry Grid dengan bantuan library react-masonry-css pada komponen PhotoGrid.jsx
+
+# Day 8 - Mini Youtube
+Service : youtubeServices
+component: SearchBar
+pages:Youtube
