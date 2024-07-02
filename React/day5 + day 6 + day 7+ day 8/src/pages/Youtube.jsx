@@ -51,7 +51,7 @@ const Youtube = () => {
                         <div className="col-span-5">
                             <iframe
                                 width="100%"
-                                height="780"
+                                height="480"
                                 src={`https://www.youtube.com/embed/${currentVideo.id.videoId}`}
                                 title={currentVideo.snippet.title}
 
@@ -73,7 +73,7 @@ const Youtube = () => {
                             .map((video) => (
                                 <div
                                     key={video.id.videoId}
-                                    className="cursor-pointer mb-2"
+                                    className="cursor-pointer mb-4"
                                     onClick={() => handleThumbnailClick(video)}
                                 >
                                     <img
