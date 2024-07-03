@@ -23,7 +23,7 @@ pages:Youtube
 Library
 1. Redux dan React-Redux untuk manajemen state
 2. Redux Toolkit untuk menyederhanakan konfigurasi Redux (jadi bisa pakai slice )
-3. Redux Persist agar pagenya persistance
+3. Redux Persist agar statenya persistance di simpan di localstorage
 
 
 Store Redux didefinisikan di src/store/index.js, yang mengkonfigurasi Redux dan Redux Persist. Counter slice berada di src/store/counterSlice.js, mendefinisikan aksi dan reducer untuk operasi increment, decrement dan reset. di implementasikan pada pages/redux.jsx.
