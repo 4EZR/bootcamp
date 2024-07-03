@@ -22,7 +22,7 @@ pages:Youtube
 # Day 9- Redux
 Library
 1. Redux dan React-Redux untuk manajemen state
-2. Redux Toolkit untuk menyederhanakan konfigurasi Redux
+2. Redux Toolkit untuk menyederhanakan konfigurasi Redux (jadi bisa pakai slice )
 3. Redux Persist agar pagenya persistance
 
 
