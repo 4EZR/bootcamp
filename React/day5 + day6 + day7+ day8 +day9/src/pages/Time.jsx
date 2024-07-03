@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 import React from 'react';
-import Time from '@/components/Time'
+import Time from '@/components/Tugas/Time'
 const Times = () => (
     <div className=' flex min-h-screen h-full justify-center items-center'>
 

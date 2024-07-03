@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { faker } from '@faker-js/faker';
 import { Separator } from '@/components/ui/separator';
-import CommentCard from '@/components/CommentCard';
+import CommentCard from '@/components/Tugas/CommentCard';
 
 // Function to generate fake comment data
 const generateFakeData = () => ({

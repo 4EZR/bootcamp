@@ -2,7 +2,7 @@
 import React from 'react';
 import { faker } from '@faker-js/faker';
 import { Separator } from '@/components/ui/separator';
-import CommentContainer from '@/components/CommentContainer';
+import CommentContainer from '@/components/Tugas/CommentContainer';
 import dayjs from 'dayjs';
 const img = () => ({
   image: faker.image.abstract(),

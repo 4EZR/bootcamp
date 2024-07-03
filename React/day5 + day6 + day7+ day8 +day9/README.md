@@ -18,3 +18,12 @@ implementasi Ref Pada inputsearch mengubah dari function componennt (with hook) 
 Service : youtubeServices
 component: SearchBar
 pages:Youtube
+
+# Day 9- Redux
+Library
+1. Redux dan React-Redux untuk manajemen state
+2. Redux Toolkit untuk menyederhanakan konfigurasi Redux
+3. Redux Persist agar pagenya persistance
+
+
+Store Redux didefinisikan di src/store/index.js, yang mengkonfigurasi Redux dan Redux Persist. Counter slice berada di src/store/counterSlice.js, mendefinisikan aksi dan reducer untuk operasi increment, decrement dan reset. di implementasikan pada pages/redux.jsx.

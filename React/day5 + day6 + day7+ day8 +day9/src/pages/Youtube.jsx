@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { searchYoutube } from '../services/youtubeService';
-import SearchBar from '@/components/SearchBar';
+import SearchBar from '@/components/Tugas/SearchBar';
 
 const Youtube = () => {
     const [loading, setLoading] = useState(false);

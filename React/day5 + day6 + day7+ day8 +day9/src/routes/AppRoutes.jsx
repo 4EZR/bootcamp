@@ -7,6 +7,7 @@ import Times from '../pages/Time';
 import MainLayout from '../layouts/MainLayout';
 import SearchPhotoGallery from '../pages/Search';
 import Youtube from '../pages/Youtube';
+import Redux from '../pages/Redux';
 
 const AppRoutes = () => (
     <Router>
@@ -17,6 +18,7 @@ const AppRoutes = () => (
                 <Route path="/time" element={<Times />} />
                 <Route path='/search' element={<SearchPhotoGallery />} />
                 <Route path='/youtube' element={<Youtube />} />
+                <Route path='/redux' element={<Redux />} />
             </Routes>
         </MainLayout>
     </Router>

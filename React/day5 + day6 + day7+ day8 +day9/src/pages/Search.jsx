@@ -1,8 +1,8 @@
 // src/components/SearchPhotoGallery.js
 import React, { useState } from 'react';
 import { searchPhotos } from '../services/unsplashService';
-import SearchBar from '@/components/SearchBar';
-import PhotoGrid from '@/components/PhotoGrid';
+import SearchBar from '@/components/Tugas/SearchBar';
+import PhotoGrid from '@/components/Tugas/PhotoGrid';
 
 const SearchPhotoGallery = () => {
     const [photos, setPhotos] = useState([]);
