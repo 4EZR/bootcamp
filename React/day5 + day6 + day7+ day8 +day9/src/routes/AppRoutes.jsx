@@ -8,6 +8,7 @@ import MainLayout from '../layouts/MainLayout';
 import SearchPhotoGallery from '../pages/Search';
 import Youtube from '../pages/Youtube';
 import Redux from '../pages/Redux';
+import Form from '../pages/Form';
 
 const AppRoutes = () => (
     <Router>
@@ -19,6 +20,7 @@ const AppRoutes = () => (
                 <Route path='/search' element={<SearchPhotoGallery />} />
                 <Route path='/youtube' element={<Youtube />} />
                 <Route path='/redux' element={<Redux />} />
+                <Route path='/form' element={<Form />} />
             </Routes>
         </MainLayout>
     </Router>
