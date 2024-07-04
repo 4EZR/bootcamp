@@ -58,7 +58,6 @@ const FormComponent = () => {
                                                 </div>
                                             )}
                                         </Field>
-
                                         <Field name="lastname">
                                             {({ input, meta }) => (
                                                 <div>
@@ -102,7 +101,7 @@ const FormComponent = () => {
                                             )}
                                         </Field>
 
-                                        <Field name="expertise" type="checkbox">
+                                        <Field name="expertise">
                                             {({ input }) => (
                                                 <div>
                                                     <Label className='mb-2'>Expertise</Label>
@@ -115,8 +114,12 @@ const FormComponent = () => {
                                                                     onCheckedChange={(checked) => {
                                                                         const newValue = input.value || [];
                                                                         if (checked) {
-                                                                            input.onChange([...newValue, skill]);
+                                                                            // Add the skill to the array if not already present
+                                                                            if (!newValue.includes(skill)) {
+                                                                                input.onChange([...newValue, skill]);
+                                                                            }
                                                                         } else {
+                                        
                                                                             input.onChange(newValue.filter(item => item !== skill));
                                                                         }
                                                                     }}
@@ -128,6 +131,8 @@ const FormComponent = () => {
                                                 </div>
                                             )}
                                         </Field>
+
+
 
                                         <Field name="preferredRole" type="radio">
                                             {({ input, meta }) => (

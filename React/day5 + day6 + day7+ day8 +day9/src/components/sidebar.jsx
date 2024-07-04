@@ -6,6 +6,7 @@ import { GoHomeFill } from "react-icons/go";
 import { CiImageOn } from "react-icons/ci";
 import { FaYoutube } from "react-icons/fa";
 import { SiRedux } from "react-icons/si";
+import { FaWpforms } from "react-icons/fa";
 
 const Sidebar = () => {
     return (
@@ -36,6 +37,9 @@ const Sidebar = () => {
                     </div>
                     <div className="mt-5">
                         <SidebarButton icon={<SiRedux/>} tooltipText="Tugas | Redux"  href="/redux"/>
+                    </div>
+                    <div className="mt-5">
+                        <SidebarButton icon={<FaWpforms/>} tooltipText="Tugas | Form"  href="/form"/>
                     </div>
                 </div>
             </div>
