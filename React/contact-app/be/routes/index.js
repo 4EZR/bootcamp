@@ -31,6 +31,8 @@ router.get('/contact', asyncHandler(async (req, res) => {
 router.post('/contact', asyncHandler(async (req, res) => {
     const { name, phone, email } = req.body;
 
+    console.error(req.body);
+
     if (await countName(name) >= 1) {
         return res.status(400).json({ error: 'Name already exists' });
     }

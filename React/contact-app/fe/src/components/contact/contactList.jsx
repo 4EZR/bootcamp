@@ -1,23 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import contactService from '@/services/contactService';
 
-export function ContactList() {
-    const [contacts, setContacts] = useState([]);
-
-    useEffect(() => {
-        const fetchContacts = async () => {
-            try {
-                const data = await contactService.getAllContacts();
-                setContacts(data.contacts);
-            } catch (error) {
-                console.error('Error fetching contacts:', error);
-            }
-        };
-        fetchContacts();
-    }, []);
-
+export function ContactList({ contacts, onView, onEdit, onDelete }) {
     return (
         <Table>
             <TableHeader>
@@ -33,13 +17,11 @@ export function ContactList() {
                         <TableCell>{contact.name}</TableCell>
                         <TableCell>{contact.phone}</TableCell>
                         <TableCell>
-                            <Button variant="outline">View</Button>
-                            <Button variant="outline">Edit</Button>
-                            <Button variant="destructive">Delete</Button>
+                            <Button variant="outline" onClick={() => onView(contact)} className="mr-2">View</Button>
                         </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
         </Table>
     );
-}export default ContactList;
+}
